@@ -11,6 +11,6 @@ class Crud extends Model
      *
      * @var string
      */
-     protected $table = 'crud';
+     protected $table = 'crud';#crudテーブルと紐付
 
 }
