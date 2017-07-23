@@ -1,25 +1,25 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Crud; #Crudモデルのパスを通す
 use App\Http\Requests\CrudRequest;
 
 
-class Crudcontroller extends Controller
+class CrudController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         #キーワード受け取り
         $keyword = $request->input('keyword');
  
         #クエリ生成
-        $query = User::query();
+        $query = Crud::query();
  
         #もしキーワードがあったら
         if(!empty($keyword))
@@ -28,10 +28,10 @@ class Crudcontroller extends Controller
         }
  
          #ページネーション
-        $data = $query->orderBy('created_at','desc')->paginate(10);
+        $data = $query->orderBy('created_at','desc')->paginate(5);
         return view('crud.index')->with('data',$data)
-        ->with('keyword',$keyword)
-        ->with('message','ユーザーリスト');
+                                  ->with('keyword',$keyword)
+                                  ->with('message','ユーザーリスト');
 
         
        /* $data = Crud::latest('created_at')->paginate(10);
@@ -66,8 +66,9 @@ class Crudcontroller extends Controller
         $crud->tel = $request->tel;
         $crud->save();
         
+       #viewの表示
         $res = $request->input('name')."さんを追加しました。";
-        $data = Crud::latest('created_at')->paginate(10);
+        $data = Crud::latest('created_at')->paginate(5);
         return redirect('/crud/')->with('message',$res)->with('data',$data)->with('status','新規保存の処理完了！');
     }    
 
@@ -114,8 +115,9 @@ class Crudcontroller extends Controller
         $crud->tel = $request->tel;
         $crud->save();
         
+        #viewの表示
         $res = $request->input('name')."さんを更新しました。";
-        $data = Crud::latest('created_at')->paginate(10);
+        $data = Crud::latest('created_at')->paginate(5);
         return redirect('/crud/')->with('message',$res)->with('data',$data)->with('status','更新処理完了！');
     }
 
