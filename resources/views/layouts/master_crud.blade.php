@@ -36,6 +36,8 @@
         </div><!--/.nav-collapse -->
     </div>
 </nav>
+    
+ <body style="padding:60px;">   
  
 <div class="container">
     @yield('content')
@@ -56,7 +58,7 @@
 <script src="{{ url('/') }}/assets/js/application.js"></script>
  
 <script>
-    videojs.options.flash.swf = "{{ url('/') }}/dist/js/vendors/video-js.swf"
+    videojs.options.flash.swf = "{{ url('crud') }}/dist/js/vendors/video-js.swf"
 </script>
 </body>
 </html>
